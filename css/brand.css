@@ -1,0 +1,128 @@
+/* Makkal branding and the confidentiality watermark.
+   Loaded last so it wins over app.css/batch2.css without editing them.
+   Everything here is inline or computed — no font, image or script is fetched from a network. */
+
+:root {
+  --mk-orange: #fd5722;
+  --mk-orange-ink: #c8410f;
+  /* The logo's letterforms are a slab. Nothing is fetched, so this is a stack of faces that
+     ship with Windows and Office, falling back to any serif. */
+  --mk-slab: Rockwell, "Roboto Slab", "Bookman Old Style", Georgia, serif;
+}
+
+/* ---------- Anvil, the product lockup ---------- */
+
+/* The mark and the word are one object: tight inside, clear space outside. */
+.anvil-lockup { display: inline-flex; align-items: center; gap: 5px; }
+.anvil-mark { height: 16px; width: auto; color: var(--mk-orange); flex: none; }
+/* The word is Alfa Slab One, the logo's face, drawn as outlines (#mkAnvilWord in index.html)
+   so it looks the same on every machine and no font is fetched. Heights match the Makkal
+   logo's cap height, as the README lockup does (docs/img/logo-*.svg). */
+.anvil-word { height: 12px; width: auto; flex: none; display: block; }
+.anvil-lockup.lg .anvil-mark { height: 19px; }
+.anvil-lockup.lg .anvil-word { height: 14px; }
+
+/* ---------- logo ---------- */
+
+.mk-logo { height: 30px; width: auto; color: var(--mk-orange); display: block; }
+.mk-logo use { fill: currentColor; }
+
+.hdr .mk-brand { display: flex; align-items: center; gap: 8px; margin-right: 10px; }
+.hdr .mk-brand .brand {
+  border-left: 1px solid #4a5968; padding-left: 10px;
+}
+/* The login card carries the same one-line lockup as the header, not a stacked version. */
+.login-head .mk-brand { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.login-head .mk-logo { height: 34px; margin: 0; }
+.login-head .brand { border-left: 1px solid #4a5968; padding-left: 12px; }
+.login-head > div { text-align: center; }
+
+/* ---------- watermark ---------- */
+
+/* A fixed, non-interactive tiled layer above the app. It is oversized and rotated so the
+   tiling seam never lands on screen, and it sits under dialogs by design — the point is that
+   it lands on a screenshot, not that it obstructs the demo. */
+#mkWm {
+  position: fixed;
+  inset: -60%;
+  z-index: 9000;
+  pointer-events: none;
+  transform: rotate(-28deg);
+  opacity: .035;   /* light text on the dark dashboard canvas */
+  background-repeat: repeat;
+  /* background-image is set by js/brand.js so the text can carry today's date and the audience */
+}
+
+/* The marker lives in the status strip rather than floating over the app.
+   It sat in the bottom-right corner, which is exactly where a screen puts its primary
+   action - on Test Setups it covered "Load & start on rack...". Clicks passed through it,
+   but it was still sitting on the one button the demo is heading for. The status bar is
+   always on screen, carries no controls, and lands in every screenshot just the same. */
+#mkBadge {
+  position: fixed; right: 10px; bottom: 3px; z-index: 9001;
+  pointer-events: none;
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(20, 26, 32, .92);
+  color: #fff;
+  border: 1px solid var(--mk-orange);
+  border-radius: 3px;
+  padding: 3px 9px 3px 7px;
+  font: 600 11px/1 var(--mono, Consolas, monospace);
+  letter-spacing: .05em;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .3);
+}
+/* Keep the status bar's own text clear of it. */
+.status { padding-right: 190px; }
+/* The login screen has no status bar, so the marker keeps a corner there. */
+body.pre-login #mkBadge { bottom: 14px; right: 14px; }
+#mkBadge .mk-logo { height: 14px; }
+#mkBadge b { color: var(--mk-orange); letter-spacing: .12em; text-transform: uppercase; }
+
+/* The login card gets its own notice — first thing on screen when the demo starts. */
+.mk-conf-note {
+  margin: 10px 0 0; padding: 7px 9px;
+  border: 1px solid var(--mk-orange); border-left-width: 3px;
+  background: #fff5f0; color: #6b2a12;
+  font-size: 11px; line-height: 1.45; border-radius: 2px;
+}
+.mk-conf-note b { color: var(--mk-orange-ink); letter-spacing: .06em; }
+
+@media print { #mkWm { opacity: .11; } }
+
+/* ---- Enquiry overlay ----------------------------------------------------
+   Deliberately not a gate: it opens on the header button, and once unprompted
+   after the visitor has looked at three screens. Dismissed means dismissed. */
+.hbtn.talk { border-color: var(--mk-orange); color: #fff; }
+.hbtn.talk:hover { background: var(--mk-orange); }
+
+.lead-wrap { position: fixed; inset: 0; z-index: 9100; background: rgba(12, 18, 24, .55);
+             display: flex; align-items: center; justify-content: center; padding: 20px; }
+.lead-card { background: #fff; border-radius: 5px; width: 460px; max-width: 100%;
+             max-height: 90vh; overflow-y: auto; padding: 20px 22px 18px; position: relative;
+             box-shadow: 0 10px 40px rgba(0, 0, 0, .35); border-top: 4px solid var(--mk-orange); }
+.lead-x { position: absolute; top: 8px; right: 10px; border: 0; background: transparent;
+          font-size: 22px; line-height: 1; color: var(--muted, #6b7785); cursor: pointer; }
+.lead-x:hover { color: var(--ink, #16202a); }
+.lead-card h3 { margin: 0 0 6px; font-size: 17px; }
+.lead-sub { margin: 0 0 14px; font-size: 13px; color: var(--muted, #6b7785); line-height: 1.5; }
+.lead-form label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 9px; }
+.lead-form input, .lead-form select { display: block; width: 100%; margin-top: 3px; padding: 6px 8px;
+             border: 1px solid var(--line, #d6dde4); border-radius: 3px; font: inherit; font-weight: 400; }
+.lead-form input:focus, .lead-form select:focus { border-color: var(--mk-orange); outline: none; }
+.lead-priv { font-size: 11px; color: var(--muted, #6b7785); line-height: 1.5; margin: 12px 0; }
+.lead-foot { display: flex; align-items: center; gap: 12px; }
+.lead-alt { font-size: 12px; color: var(--muted, #6b7785); margin-right: auto; }
+.lead-msg { font-size: 12px; color: #9b1c18; background: #fdecea; border-radius: 3px;
+            padding: 8px 10px; margin: 12px 0 0; line-height: 1.5; }
+.lead-ok { font-size: 14px; line-height: 1.6; margin: 10px 0; }
+@media (max-width: 520px) { .lead-card { padding: 16px; } }
+
+/* ---- First-run orientation ---------------------------------------------- */
+.ob-wrap { position: fixed; inset: 0; z-index: 9050; background: rgba(12, 18, 24, .45);
+           display: flex; align-items: center; justify-content: center; padding: 20px; }
+.ob-card { background: #fff; border-radius: 5px; width: 420px; max-width: 100%; padding: 20px 22px 18px;
+           box-shadow: 0 10px 40px rgba(0, 0, 0, .3); border-top: 4px solid var(--mk-orange); }
+.ob-card h3 { margin: 0 0 8px; font-size: 17px; }
+.ob-card p { margin: 0 0 10px; font-size: 13px; line-height: 1.55; }
+.ob-card .ob-sub { color: var(--muted, #6b7785); }
+.ob-foot { display: flex; gap: 10px; justify-content: flex-end; margin-top: 14px; }
