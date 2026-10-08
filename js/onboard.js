@@ -1,30 +1,33 @@
-/* First-run orientation. Once, on the first entry, a card that says what this is and the four
-   things worth trying. Declining is remembered for the session; the header button brings it back.
-   A rehearsal link that names a screen stays out of the way. */
+/* The Guide. Offered once on the first entry, and on the header's "? Guide" button any time: a
+   walkthrough of the screens, and five scenarios, each of which injects one fault, moves the clock
+   on and shows where it surfaces. A rehearsal link that names a screen stays out of the way. */
 (function (M) {
   var offered = false;
 
   function show() {
     if (document.querySelector('.ob-wrap')) return;
+    if (M.tour && M.tour.active()) M.tour.stop();
     var el = document.createElement('div');
     el.className = 'ob-wrap';
     el.innerHTML =
-      '<div class="ob-card">' +
+      '<div class="ob-card guide">' +
         '<h3>A factory’s test results, in one place</h3>' +
         '<p>Three product lines, nine testers — TestStand, LabVIEW and two vendor testers that only drop files. ' +
         'Every result lands in one store with the software version that produced it. Seven days of history, and it is still running.</p>' +
-        '<p><b>Worth trying</b></p><ol>' +
-          '<li><b>Yield &amp; Pareto</b> — true first-pass yield against the yield the line reports.</li>' +
-          '<li><b>Demo ▾ → wear out the ICT fixture</b>, then watch <b>Measurements</b> catch it before the yield drops.</li>' +
-          '<li><b>Demo ▾ → deploy an unreleased build to A3</b>, then <b>Traceability</b> lists every unit it touched.</li>' +
-          '<li><b>Data pipeline → take a link down</b>: results queue on the tester and back-fill when it returns.</li>' +
-        '</ol>' +
-        '<p class="ob-sub">Everything here is simulated and invented. Set the speed to ×600 in the header to watch a shift go by.</p>' +
-        '<div class="ob-foot"><button class="btn ob-no">Look around</button><button class="btn primary ob-yes">Start on Yield &amp; Pareto</button></div>' +
+        '<div class="g-walk"><div><b>The walkthrough</b><span>Every screen, starting with Yield &amp; Pareto. About three minutes.</span></div>' +
+          '<button class="btn primary" data-walk>Start the walkthrough</button></div>' +
+        '<p style="margin:14px 0 4px"><b>Scenarios</b> — the faults in the <b>Demo ▾</b> menu, one at a time. Each one breaks something, ' +
+        'moves the clock on a few hours and takes you to every screen where it shows.</p>' +
+        '<div class="g-scen">' + M.SCENARIOS.map(function (s) {
+          return '<button data-scen="' + s[0] + '"><b>' + s[1] + '</b><span>' + s[2] + '.</span><i>' + s[3] + '</i></button>';
+        }).join('') + '</div>' +
+        '<p class="ob-sub" style="margin-top:12px">Everything here is simulated and invented. A scenario changes the factory: use its fix, or reload the page to start again.</p>' +
+        '<div class="ob-foot"><button class="btn ob-no">Look around on my own</button></div>' +
       '</div>';
     var close = function () { el.remove(); };
     el.querySelector('.ob-no').onclick = close;
-    el.querySelector('.ob-yes').onclick = function () { close(); M.ui.go('yield'); };
+    el.querySelector('[data-walk]').onclick = function () { close(); M.tour.walk(0); };
+    el.querySelectorAll('[data-scen]').forEach(function (b) { b.onclick = function () { close(); M.tour.scenario(b.dataset.scen); }; });
     el.addEventListener('mousedown', function (e) { if (e.target === el) close(); });
     document.body.appendChild(el);
   }
@@ -32,7 +35,7 @@
 
   function mount() {
     var q = new URLSearchParams(location.hash.slice(1));
-    if (q.get('screen') || q.get('noob') === '1') return;
+    if (q.get('screen') || q.get('noob') === '1' || q.get('tour') || q.get('scenario')) return;
     var t = setInterval(function () {
       var app = document.getElementById('app');
       if (!app || app.hidden) return;

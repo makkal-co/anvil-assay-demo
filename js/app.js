@@ -21,7 +21,7 @@
     $('#login').hidden = true; $('#app').hidden = false; document.body.classList.remove('pre-login');
     go(S.screen);
   }
-  $('#hdrLogout').onclick = () => { S.user = null; $('#app').hidden = true; $('#login').hidden = false; document.body.classList.add('pre-login'); renderLogin(); };
+  $('#hdrLogout').onclick = () => { M.tour.stop(); S.user = null; $('#app').hidden = true; $('#login').hidden = false; document.body.classList.add('pre-login'); renderLogin(); };
 
   // ---- Navigation ------------------------------------------------------------------------
   let mounted = null;
@@ -99,6 +99,8 @@
     });
     items.push({ head: 'Speed' });
     [[1, 'Real time'], [60, '×60 — 1 s = 1 min'], [600, '×600 — 1 s = 10 min']].forEach(([v, l]) => items.push({ label: l, on: sim.speed === v ? '●' : '', fn: () => { sim.speed = v; $('#hdrSpeed').value = String(v); } }));
+    items.push({ head: 'Not sure what these do?' });
+    items.push({ label: 'Walk me through each scenario…', fn: () => M.onboard.show() });
     ui.menu(e.currentTarget, items);
   };
   $('#hdrSpeed').onchange = (e) => { sim.speed = +e.target.value; };
@@ -120,6 +122,9 @@
   if (q.sn) S.sn = q.sn;
   if (q.screen) S.screen = q.screen;
   if (q.user) enter(M.USERS.find((u) => u.u === q.user) || M.USERS[1]);
+  // …&tour=3 opens the walkthrough at step 3; …&scenario=wear&step=2 runs a scenario.
+  if (S.user && q.tour) M.tour.walk(+q.tour - 1);
+  if (S.user && q.scenario) M.tour.scenario(q.scenario, (+q.step || 1) - 1);
 
   let last = performance.now(), n = 0;
   setInterval(() => {

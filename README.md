@@ -37,14 +37,26 @@ something looks like your factory.
 
 ## Try it in five minutes
 
-1. Open `index.html`. Pick a role — no password.
-2. **Yield & Pareto** — true first-pass yield against the yield the line reports, and where the
-   failures are.
-3. **Demo ▾ → wear out the ICT fixture on A1**, set the speed to ×600, and watch **Measurements**
-   show probe contact drifting towards its limit before the yield moves.
-4. **Demo ▾ → deploy an unreleased sequence build to A3**, then **Traceability → Containment** lists
-   every unit it tested, including the ones that have already passed the whole line.
-5. **Data pipeline → take a link down**. Results queue on the tester; restore it and they back-fill.
+Open `index.html` and pick a role; there is no password. The **Guide** opens on its own. Press
+**? Guide** in the header to bring it back at any time. It offers two kinds of tour:
+
+- **The walkthrough.** Every screen, one panel at a time, starting with **Yield & Pareto**: what you
+  are looking at, and why it matters. It takes about three minutes.
+- **Five scenarios.** Each one injects a fault from the **Demo ▾** menu and moves the factory clock
+  on a few hours so the fault has something to show. It then takes you to every screen where the
+  fault appears, and ends with the fix.
+
+| Scenario | What happens in the factory | Where it shows |
+|---|---|---|
+| **Fixture wear** | The ICT fixture's probes wear: contact resistance creeps up and worn pins cause occasional opens | **Measurements**: Cpk falls and the control chart climbs towards its limit while yield barely moves. **Yield**: no-fault-found rises |
+| **Instrument out of calibration** | A meter on one of two identical functional testers reads 11 mV high and is past its calibration date | **Measurements**: station-to-station bias. **Software & stations**: calibration overdue. **Traceability**: every unit that meter measured |
+| **Component-lot shift** | Power modules move to a new component lot that costs a point of efficiency | **Measurements**: the distribution moves towards its limit, and the split by lot shows why. **BI export**: the dataset for design engineering |
+| **Unreleased test build** | A development build of the functional test is copied onto one station | **Software & stations**: deployed version differs from released. **Traceability**: containment lists every unit it tested |
+| **Network outage** | One station loses its network link for an hour | **Factory live** and **Data pipeline**: results queue on the tester, then back-fill when the link returns |
+
+You can also break things yourself from **Demo ▾**, and set the speed to ×600 to watch a shift go
+by. A scenario changes the simulated factory. Use the fix at the end of the scenario, or reload the
+page to start again.
 
 | | |
 |---|---|
@@ -116,6 +128,7 @@ js/data.js        products, stations, measurements, limits — the factory lives
 js/sim.js         the factory: arrivals, retests, repairs, collectors, faults, alerts
 js/stats.js       first-pass yield, RTY, Cpk, Pareto, control limits
 js/scr-*.js       one file per screen
+js/tour.js        the Guide: the walkthrough and the five scenarios
 docs/             the question set and README screenshots
 assets/icons/     favicon sources
 ```
@@ -129,7 +142,8 @@ index.html#user=quality&screen=trace&fault=dev&adv=120
 ```
 
 `fault=` takes `wear`, `cal`, `lot`, `dev`, `offline`; `adv=` moves the clock on by that many
-simulated minutes. To check a change without clicking:
+simulated minutes. `tour=3` opens the walkthrough at step 3. `scenario=wear&step=2` runs a scenario
+from the step given; the scenario names are the same as the `fault=` values. To check a change without clicking:
 
 ```
 chrome --headless=new --screenshot=shot.png --window-size=1440,900 --virtual-time-budget=3000 \
