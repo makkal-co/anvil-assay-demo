@@ -5,6 +5,8 @@
 :root {
   --mk-orange: #fd5722;
   --mk-orange-ink: #c8410f;
+  /* Each Anvil demo has its own colour: Assay #2f6fd6, Temper #1b865f. Reserved: #1a8479, #1d8195, #d6932e. */
+  --anvil-product: #2f6fd6;
   /* The logo's letterforms are a slab. Nothing is fetched, so this is a stack of faces that
      ship with Windows and Office, falling back to any serif. */
   --mk-slab: Rockwell, "Roboto Slab", "Bookman Old Style", Georgia, serif;
@@ -15,12 +17,19 @@
 /* The mark and the word are one object: tight inside, clear space outside. */
 .anvil-lockup { display: inline-flex; align-items: center; gap: 5px; }
 .anvil-mark { height: 16px; width: auto; color: var(--mk-orange); flex: none; }
-/* The word is Alfa Slab One, the logo's face, drawn as outlines (#mkAnvilWord in index.html)
-   so it looks the same on every machine and no font is fetched. Heights match the Makkal
-   logo's cap height, as the README lockup does (docs/img/logo-*.svg). */
-.anvil-word { height: 12px; width: auto; flex: none; display: block; }
+/* ANVIL is Inter SemiBold in spaced capitals, drawn as outlines (#mkAnvilCaps in index.html) so
+   it looks the same on every machine and nothing is fetched. It stays light so it never competes
+   with the Makkal slab. The product name is the coloured tag; the colour is this demo's own. */
+.anvil-caps { height: 9px; width: auto; flex: none; display: block; margin-left: 2px; }
+.anvil-tag { background: var(--anvil-product); color: #fff; font: 600 12px/1 "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  padding: 3px 7px 4px; border-radius: 4px; margin-left: 3px; letter-spacing: .01em; }
 .anvil-lockup.lg .anvil-mark { height: 19px; }
-.anvil-lockup.lg .anvil-word { height: 14px; }
+.anvil-lockup.lg .anvil-caps { height: 11px; }
+.anvil-lockup.lg .anvil-tag { font-size: 14px; padding: 4px 9px 5px; }
+.anvil-lockup { gap: 7px; }
+/* The product colour also marks the way in and where you are. */
+.login .btn.primary { background: var(--anvil-product); border-color: var(--anvil-product); color: #fff; }
+.ribbon button.on { border-bottom-color: var(--anvil-product); }
 
 /* ---------- logo ---------- */
 

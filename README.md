@@ -1,4 +1,17 @@
-# Anvil — production test data
+<p align="center">
+  <a href="https://makkal-co.github.io/anvil-test-data-demo/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/img/logo-dark.svg">
+      <img src="docs/img/logo-light.svg" alt="Makkal · Anvil Assay" width="440">
+    </picture>
+  </a>
+</p>
+
+# Anvil Assay — production test data
+
+*Anvil is Makkal's family of reference test systems. Assay is the one for production test data.
+[Anvil Temper](https://github.com/makkal-co/anvil-pump-durability-demo) is its sibling for
+durability test stands.*
 
 **Your engineers keep writing the tests. We make every result land in one place, with the software
 version that produced it, and turn it into decisions.**
@@ -9,7 +22,7 @@ layer for an electronics factory. Three product lines and nine testers — TestS
 applications and vendor testers that only drop files — all collected into one store, local first and
 then networked, with dashboards for yield, traceability, drift and software versions.
 
-### ▶ Open `index.html`
+### ▶ [Open the live demo](https://makkal-co.github.io/anvil-test-data-demo/), or open `index.html` locally
 
 No install, no sign-up, no network. Pick a role and go. Press **Talk to us** in the header whenever
 something looks like your factory.
