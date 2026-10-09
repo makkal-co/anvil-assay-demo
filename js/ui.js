@@ -2,7 +2,7 @@
 (function (M) {
   const ui = {};
   M.ui = ui;
-  ui.state = { user: null, screen: 'live', st: null, range: 24 * 3600000 };
+  ui.state = { user: null, screen: 'floor', st: null, range: 24 * 3600000 };
   M.screens = {};
 
   ui.esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

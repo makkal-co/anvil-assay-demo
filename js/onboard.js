@@ -14,7 +14,7 @@
         '<h3>A factory’s test results, in one place</h3>' +
         '<p>Three product lines, nine testers — TestStand, LabVIEW and two vendor testers that only drop files. ' +
         'Every result lands in one store with the software version that produced it. Seven days of history, and it is still running.</p>' +
-        '<div class="g-walk"><div><b>The walkthrough</b><span>Every screen, starting with Yield &amp; Pareto. About three minutes.</span></div>' +
+        '<div class="g-walk"><div><b>The walkthrough</b><span>Every screen, starting with the factory floor, then Yield &amp; Pareto. About three minutes.</span></div>' +
           '<button class="btn primary" data-walk>Start the walkthrough</button></div>' +
         '<p style="margin:14px 0 4px"><b>Scenarios</b> — the faults in the <b>Demo ▾</b> menu, one at a time. Each one breaks something, ' +
         'moves the clock on a few hours and takes you to every screen where it shows.</p>' +

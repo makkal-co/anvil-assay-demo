@@ -30,6 +30,9 @@
 
   // ---- The walkthrough ---------------------------------------------------------------------------
   const WALK = [
+    { screen: 'floor', st: null, sel: '#flWrap', title: 'The factory at a glance',
+      text: 'An invented electronics factory: three product lines, nine testers, a server room and an engineering office. Each tester has a status light and a label with the unit it is testing and its first-pass yield today. The blue dashed lines are results travelling from each tester’s collector to the central store.',
+      why: 'Click any tester for its yield, the server room for the data pipeline, the office for BI exports. Every scenario in the Guide shows up here too.' },
     { screen: 'yield', st: null, sel: '#yStats', title: 'Two yields, told honestly',
       text: '<b>Reported final yield</b> is what most lines quote: a unit that fails, is retested and passes counts as a pass. <b>True first-pass yield</b> counts first attempts only. The gap between them is retest time, paid for on every shift.',
       why: 'Rolled throughput yield multiplies first-pass yield along the route. Three stations at 96–98% each give about 92% for the sensor node, while the line reports close to 100%.' },
@@ -148,6 +151,9 @@
         { screen: 'live', st: null, sel: '#lvFeed', panel: true, title: 'What we just did',
           text: 'Someone copied a development build of the functional test, <b>3.2.1-dev</b>, onto station A3, perhaps to try a fix. It runs and units pass. The clock has moved on two hours.',
           why: 'It happens in every factory that writes its own tests. The question is whether anyone can tell.' },
+        { screen: 'floor', st: null, sel: '#flWrap', title: 'On the floor',
+          text: 'A3’s light has gone red and its label says <b>unreleased build 3.2.1-dev</b>. Units are still flowing through it and on down the line.',
+          why: 'Nothing on the station itself looks wrong. The data says so.' },
         { screen: 'registry', st: null, sel: '#rSt', panel: true, title: 'Seen from the first result',
           text: 'A3 shows <b>NOT RELEASED</b>: deployed 3.2.1-dev with a hash nobody released. Nobody reported it. The collector writes the version and source-control hash into every result.',
           why: 'Click a row here and it opens the containment query for that version.' },
@@ -159,9 +165,9 @@
     offline: {
       title: 'Network outage', start: () => prep('offline', 60), fix: null,
       steps: [
-        { screen: 'live', st: null, sel: '#lvCards [data-st="A2"]', title: 'What we just did',
-          text: 'Station A2’s network link went down an hour ago. The calibration station keeps testing; its collector queues results on the tester.',
-          why: 'Testing never waits for the server.' },
+        { screen: 'floor', st: null, sel: '#flWrap', title: 'What we just did',
+          text: 'Station A2’s network link went down an hour ago. On the floor its cable has gone grey and results are piling up beside the tester, while the calibration station keeps testing.',
+          why: 'Testing never waits for the server. The central store’s label counts what is still on the testers.' },
         { screen: 'pipeline', st: null, sel: '#pColl', panel: true, title: 'Queued, not lost',
           text: 'A2 is offline with its queue filling. The status strip at the bottom counts results held on testers. In the store, A2 simply goes quiet.',
           why: 'This is also how a tester that has never been networked starts: collecting locally from day one.' },

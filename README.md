@@ -27,7 +27,9 @@ then networked, with dashboards for yield, traceability, drift and software vers
 No install, no sign-up, no network. Pick a role and go. Press **Talk to us** in the header whenever
 something looks like your factory.
 
-![Factory live: every station, with true first-pass yield against reported yield](docs/img/screens/live.png)
+![Floor view: the factory as a live plan — every tester, its status, and its results flowing to the central store](docs/img/screens/floor.png)
+
+*The floor view: three lines, nine testers, the server room and the dashboards. Here station A2 has lost its network link: its cable is grey and its results are queuing beside the tester.*
 
 > **A demonstration, not a delivered system.** The products, stations, results and people are all
 > invented, and the factory behind the screens is a simulation. What is real is the way it is built.
@@ -53,7 +55,7 @@ something looks like your factory.
 Open `index.html` and pick a role; there is no password. The **Guide** opens on its own. Press
 **? Guide** in the header to bring it back at any time. It offers two kinds of tour:
 
-- **The walkthrough.** Every screen, one panel at a time, starting with **Yield & Pareto**: what you
+- **The walkthrough.** Every screen, one panel at a time, starting with the **floor view** and then **Yield & Pareto**: what you
   are looking at, and why it matters. It takes about three minutes.
 - **Five scenarios.** Each one injects a fault from the **Demo ▾** menu and moves the factory clock
   on a few hours so the fault has something to show. It then takes you to every screen where the
@@ -73,9 +75,10 @@ page to start again.
 
 | | |
 |---|---|
-| ![Yield & Pareto](docs/img/screens/yield.png) **Yield & Pareto** — first-pass vs final, RTY, Pareto | ![Measurements](docs/img/screens/measurements.png) **Measurements** — a worn fixture caught by Cpk and SPC |
-| ![Traceability](docs/img/screens/traceability.png) **Traceability** — unit history and containment | ![Software & stations](docs/img/screens/registry.png) **Software & stations** — released against deployed |
-| ![Data pipeline](docs/img/screens/pipeline.png) **Data pipeline** — local first, then networked | ![BI export](docs/img/screens/export.png) **BI export** — published views for Power BI and Excel |
+| ![Factory live](docs/img/screens/live.png) **Factory live** — every station, true first-pass against reported yield | ![Yield & Pareto](docs/img/screens/yield.png) **Yield & Pareto** — first-pass vs final, RTY, Pareto |
+| ![Measurements](docs/img/screens/measurements.png) **Measurements** — a worn fixture caught by Cpk and SPC | ![Traceability](docs/img/screens/traceability.png) **Traceability** — unit history and containment |
+| ![Software & stations](docs/img/screens/registry.png) **Software & stations** — released against deployed | ![Data pipeline](docs/img/screens/pipeline.png) **Data pipeline** — local first, then networked |
+| ![BI export](docs/img/screens/export.png) **BI export** — published views for Power BI and Excel |  |
 
 ---
 
@@ -140,7 +143,7 @@ index.html        frame, login, logos, inlined favicons
 js/data.js        products, stations, measurements, limits — the factory lives here
 js/sim.js         the factory: arrivals, retests, repairs, collectors, faults, alerts
 js/stats.js       first-pass yield, RTY, Cpk, Pareto, control limits
-js/scr-*.js       one file per screen
+js/scr-*.js       one file per screen; scr-floor.js draws the isometric floor plan
 js/tour.js        the Guide: the walkthrough and the five scenarios
 docs/             the question set and README screenshots
 assets/icons/     favicon sources

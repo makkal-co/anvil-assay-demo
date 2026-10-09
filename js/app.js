@@ -5,7 +5,7 @@
   const $ = (s) => document.querySelector(s);
 
   const SCREENS = [
-    ['live', 'Factory live'], ['yield', 'Yield & Pareto'], ['meas', 'Measurements'], ['trace', 'Traceability'],
+    ['floor', 'Floor view'], ['live', 'Factory live'], ['yield', 'Yield & Pareto'], ['meas', 'Measurements'], ['trace', 'Traceability'],
     ['registry', 'Software & stations'], ['pipeline', 'Data pipeline'], ['export', 'BI export'],
   ];
 
@@ -135,7 +135,7 @@
     n++;
     header();
     // Factory live moves every second; the analytics every three, which is plenty for a chart.
-    if (S.screen === 'live' || S.screen === 'pipeline' || n % 3 === 0) refresh();
+    if (S.screen === 'floor' || S.screen === 'live' || S.screen === 'pipeline' || n % 3 === 0) refresh();
     else { rail(); status(); }
   }, 1000);
 })(globalThis.M = globalThis.M || {});
