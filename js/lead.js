@@ -11,7 +11,7 @@
    actually pulls. */
 (function () {
   var ENDPOINT = 'https://formspree.io/f/xbglqjkn';
-  var DEMO = 'anvil-test-data-demo';
+  var DEMO = 'anvil-assay-demo';
   var EMAIL = 'support@makkal.co';
   var AUTO_AFTER = 3;                 // distinct screens before it offers itself once
 
